@@ -10,10 +10,12 @@ app.use(express.static('public'));
 
 app.use(require('./routes'));
 
-// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-disco', {
-//   useFindAndModify: false,
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/social-disco', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Use this to log mongo queries being executed!
+mongoose.set('debug', true);
 
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));
