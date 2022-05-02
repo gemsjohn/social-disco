@@ -34,3 +34,6 @@ Refer to the demo of the application under /assets. This demo will demonstrate t
 - Express.js
 - MongoDB
 - Mongoose ODM
+
+## Images
+![Example Image](https://github.com/gemsjohn/social-disco/blob/main/assets/social-disco-insomnia.png)
