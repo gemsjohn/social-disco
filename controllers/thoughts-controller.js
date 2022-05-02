@@ -28,17 +28,16 @@ const thoughtsController = {
     },
 
     // createThoughts
-    createThoughts({ params, body }, res) {
+    createThoughts({ body }, res) {
         Thoughts.create(body)
         .then(({ _id }) => {
             return Users.findOneAndUpdate(
-              { _id: params.usersId },
+              { _id: body.usersId },
               { $push: { thoughts: _id } },
               { new: true }
             );
         })
         .then(dbUsersData => {
-            console.log(dbUsersData);
             if (!dbUsersData) {
               res.status(404).json({ message: 'No user found with this id!' });
               return;
@@ -46,6 +45,21 @@ const thoughtsController = {
             res.json(dbUsersData);
         })
         .catch(err => res.status(400).json(err));
+    },
+    addReaction({ params, body }, res) {
+        Thoughts.findOneAndUpdate(
+          { _id: params.reactionId },
+          { $push: { reactions: body } },
+          { new: true, runValidators: true }
+        )
+          .then(dbUsersData => {
+            if (!dbUsersData) {
+              res.status(404).json({ message: 'No user found with this id!' });
+              return;
+            }
+            res.json(dbUsersData);
+          })
+          .catch(err => res.json(err));
     },
     // update thoughts by id
     updateThoughts({ params, body }, res) {
