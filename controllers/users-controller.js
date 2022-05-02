@@ -4,6 +4,12 @@ const usersController = {
     // get all users
     getAllUsers(req, res) {
         Users.find({})
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+            .select('-__v')
+            .sort({ _id: -1 })
             .then(dbUsersData => res.json(dbUsersData))
             .catch(err => {
                 console.log(err);
@@ -13,6 +19,11 @@ const usersController = {
     // get one user by id
     getUsersById({ params }, res) {
         Users.findOne({ _id: params.id })
+        .populate({
+            path: 'thoughts',
+            select: '-__v'
+          })
+          .select('-__v')
         .then(dbUsersData => {
             // If no User is found, send 404
             if (!dbUsersData) {
@@ -35,7 +46,7 @@ const usersController = {
     },
     // update users by id
     updateUsers({ params, body }, res) {
-        Users.findOneAndUpdate({ _id: params.id }, body, { new: true })
+        Users.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
         .then(dbUsersData => {
             if (!dbUsersData) {
             res.status(404).json({ message: 'No User found with this id!' });
