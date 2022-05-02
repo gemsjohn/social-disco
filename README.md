@@ -1,4 +1,4 @@
-# Business-Manager
+# Social Disco - Social Network API
 
 ## Description
 As an aspiring entrepreneur, I want to build a social media startup company. In order to accomplish this I need an API for my social network that uses a NoSQL database so that my website can handle large amounts of unstructured data. MongoDB appears to be a popular choice for many social networks so I will give it a try! Ultimately, I want to build a web application that allows users to share their thoughts, react to friends' thoughts, and create a friend list.
